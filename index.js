@@ -21,9 +21,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Configuration - Consider using environment variables in Vercel
-const apikey = process.env.PTERODACTYL_API_KEY || 'ptla_2VlvDbfZgx004C4xrlwo5tqhL2Zna4JSegRNxrUZo8V';
-const capikey = process.env.PTERODACTYL_CLIENT_API_KEY || 'ptlc_3me95OJaM0Oa25JzNKXiL41EYnduS5sqDeZRtuSkE1s';
-const domain = process.env.PTERODACTYL_DOMAIN || 'https://privatesyafa.syafapnl.biz.id';
+const apikey = process.env.PTERODACTYL_API_KEY || 'ptla_gJOUytBL7axZiODUPuCPVW2RZz0JyLU1waVzYrvlOYA';
+const capikey = process.env.PTERODACTYL_CLIENT_API_KEY || 'ptlc_LUQutK707DOdB0lZtL4CDPOw4jCC754NJqRVebu2Egx';
+const domain = process.env.PTERODACTYL_DOMAIN || 'https://syafaprivate.syafapnl.biz.id';
 const nestid = process.env.NEST_ID || '5';
 const egg = process.env.EGG_ID || '15';
 const loc = process.env.LOCATION_ID || '1';
