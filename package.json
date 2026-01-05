@@ -1,19 +1,32 @@
 {
-  "name": "nodejs",
+  "name": "webcpanel",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pterodactyl Panel Management System",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node index.js",
+    "build": "echo 'Build completed'",
+    "start": "node index.js",
+    "vercel-dev": "vercel dev",
+    "vercel-deploy": "vercel --prod"
   },
-  "keywords": [],
+  "keywords": [
+    "pterodactyl",
+    "panel",
+    "management",
+    "server"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^22.13.11",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "node-fetch": "^3.3.2", 
+    "node-fetch": "^3.3.2",
     "archiver": "latest"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.0"
   }
 }

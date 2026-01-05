@@ -1,5 +1,4 @@
 import express from 'express';
-import fetch from 'node-fetch';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -9,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// CORS configuration for Vercel
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'DELETE', 'PATCH'],
@@ -16,20 +16,23 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Serve static files from public directory
 app.use(express.static('public'));
 
-// Configuration
-const apikey = 'ptla_2VlvDbfZgx004C4xrlwo5tqhL2Zna4JSegRNxrUZo8V';
-const capikey = 'ptlc_3me95OJaM0Oa25JzNKXiL41EYnduS5sqDeZRtuSkE1s';
-const domain = 'https://privatesyafa.syafapnl.biz.id';
-const nestid = '5';
-const egg = '15';
-const loc = '1';
-const gmailadmin = 'admin8408@gmail.com'; // Admin email that won't be deleted
-const telegramBotToken = '8544227080:AAGWI3jgLlKEuy21EbO-onLjET1PN8r9dQE';
-const adminTelegramId = '1759596749';
+// Configuration - Consider using environment variables in Vercel
+const apikey = process.env.PTERODACTYL_API_KEY || 'ptla_2VlvDbfZgx004C4xrlwo5tqhL2Zna4JSegRNxrUZo8V';
+const capikey = process.env.PTERODACTYL_CLIENT_API_KEY || 'ptlc_3me95OJaM0Oa25JzNKXiL41EYnduS5sqDeZRtuSkE1s';
+const domain = process.env.PTERODACTYL_DOMAIN || 'https://privatesyafa.syafapnl.biz.id';
+const nestid = process.env.NEST_ID || '5';
+const egg = process.env.EGG_ID || '15';
+const loc = process.env.LOCATION_ID || '1';
+const gmailadmin = process.env.ADMIN_EMAIL || 'admin8408@gmail.com';
+const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN || '8544227080:AAGWI3jgLlKEuy21EbO-onLjET1PN8r9dQE';
+const adminTelegramId = process.env.ADMIN_TELEGRAM_ID || '1759596749';
 
-// In-memory storage
+// In-memory storage (note: this resets on each serverless invocation)
+// For persistent storage, consider using a database
 let servers = [];
 let users = [];
 let admins = [];
@@ -57,8 +60,8 @@ async function sendTelegramMessage(chatId, message) {
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
 
-  if (username === 'isidewek' && password === 'isidewek') {
-    res.json({ success: true, user: { username: 'isidewek', role: 'admin' } });
+  if (username === 'syafa' && password === 'hosting') {
+    res.json({ success: true, user: { username: 'syafa', role: 'admin' } });
   } else {
     res.status(401).json({ error: 'Invalid credentials' });
   }
@@ -573,7 +576,7 @@ app.get('/api/server-status', async (req, res) => {
   }
 });
 
-// Root endpoint
+// Root endpoint - redirect to index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -598,7 +601,6 @@ app.get('/api', (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Panel API ready at :${PORT}`);
-});
+// Export for Vercel
+export default app;
+
